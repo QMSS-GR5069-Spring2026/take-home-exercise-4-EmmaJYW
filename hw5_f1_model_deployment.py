@@ -256,17 +256,20 @@ def save_feature_importance(model, feature_names, path, title):
 
 
 def write_predictions_table(pred_pdf, table_fqn, table_path):
-    """Convert pandas predictions back to Spark, write Delta to /takehome, register catalog table."""
     sdf = spark.createDataFrame(pred_pdf)
-    spark.sql(f"DROP TABLE IF EXISTS {table_fqn}")
     (
         sdf.write
            .format("delta")
            .mode("overwrite")
            .option("overwriteSchema", "true")
-           .option("path", table_path)
-           .saveAsTable(table_fqn)
+           .save(table_path)
     )
+    spark.sql(f"DROP TABLE IF EXISTS {table_fqn}")
+    spark.sql(f"""
+        CREATE TABLE {table_fqn}
+        USING DELTA
+        LOCATION 'dbfs:{table_path}'
+    """)
     print(f"Wrote {sdf.count():,} rows")
     print(f"  catalog table: {table_fqn}")
     print(f"  files at:      {table_path}")
@@ -376,6 +379,8 @@ def write_predictions_table(pred_pdf, table_path):
            .save(table_path)
     )
     print(f"Wrote {sdf.count():,} rows to {table_path}")
+write_predictions_table(rf_pred_pdf, TABLE_RF_PATH)
+display(spark.read.format("delta").load(TABLE_RF_PATH).limit(5))
 
 # COMMAND ----------
 
