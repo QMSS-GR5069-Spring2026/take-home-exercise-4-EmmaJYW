@@ -323,10 +323,7 @@ with mlflow.start_run(run_name="random_forest_podium") as run:
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## 9. Random Forest predictions → Spark → Delta in /takehome (Rubric #3)
-# MAGIC
-# MAGIC Lab pattern: add `prediction` column to the test pandas DF, hand back to Spark with
-# MAGIC `spark.createDataFrame()`, then save.
+# MAGIC ## 9. Random Forest predictions → Spark → Delta in /takehome
 
 # COMMAND ----------
 
@@ -429,7 +426,7 @@ with mlflow.start_run(run_name="gradient_boosting_podium") as run:
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## 11. Gradient Boosting predictions → Spark → Delta in /takehome (Rubric #3)
+# MAGIC ## 11. Gradient Boosting predictions → Spark → Delta in /takehome
 
 # COMMAND ----------
 
