@@ -50,7 +50,7 @@ print(f"GB table: {TABLE_GB}  →  {TABLE_GB_PATH}")
 
 # COMMAND ----------
 
-# Spark imports (matching the lab style)
+# Spark imports
 from pyspark.sql.types import IntegerType, DoubleType
 from pyspark.sql.functions import col, when
 
