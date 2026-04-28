@@ -467,6 +467,21 @@ display(spark.read.format("delta").load(TABLE_GB_PATH).limit(5))
 
 # COMMAND ----------
 
+spark.sql("DROP TABLE IF EXISTS gr5069.jw4853.predictions_random_forest")
+spark.read.format("delta").load("/Volumes/gr5069/jw4853/takehome/predictions_random_forest") \
+    .write.format("delta").mode("overwrite").option("overwriteSchema", "true") \
+    .saveAsTable("gr5069.jw4853.predictions_random_forest")
+
+spark.sql("DROP TABLE IF EXISTS gr5069.jw4853.predictions_gradient_boosting")
+spark.read.format("delta").load("/Volumes/gr5069/jw4853/takehome/predictions_gradient_boosting") \
+    .write.format("delta").mode("overwrite").option("overwriteSchema", "true") \
+    .saveAsTable("gr5069.jw4853.predictions_gradient_boosting")
+
+print("Done!")
+spark.sql("SHOW TABLES IN gr5069.jw4853").show()
+
+# COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 13. Quick comparison
 
